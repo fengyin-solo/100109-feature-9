@@ -5,9 +5,16 @@ services:
       - "8000:8000"
     environment:
       - APP_ENV=local
+      # 编辑结果落在挂载卷里，容器重启后报修记录仍在
+      - APP_DATA_DIR=/srv/data
+    volumes:
+      - light-data:/srv/data
   frontend:
     build: ./frontend
     ports:
       - "5173:5173"
     depends_on:
       - backend
+
+volumes:
+  light-data:

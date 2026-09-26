@@ -44,6 +44,7 @@ class Material2Service:
         entry["pending"] = True
         entry["abnormal"] = False
         rows.append(entry)
+        store.save()
         return entry, []
 
     def run_action(self, entry_id: int, action: str) -> tuple[dict[str, Any] | None, str]:
@@ -58,4 +59,5 @@ class Material2Service:
         entry["status"] = target
         entry["pending"] = target != STATUS_ORDER[-1]
         entry["abnormal"] = action in NEGATIVE_ACTIONS
+        store.save()
         return entry, f"养护材料已{action}"

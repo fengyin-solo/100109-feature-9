@@ -44,6 +44,7 @@ class LoadService:
         entry["pending"] = True
         entry["abnormal"] = False
         rows.append(entry)
+        store.save()
         return entry, []
 
     def run_action(self, entry_id: int, action: str) -> tuple[dict[str, Any] | None, str]:
@@ -58,4 +59,5 @@ class LoadService:
         entry["status"] = target
         entry["pending"] = target != STATUS_ORDER[-1]
         entry["abnormal"] = action in NEGATIVE_ACTIONS
+        store.save()
         return entry, f"超限记录已{action}"
